@@ -8,7 +8,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
   ]).then((results) => {
     results.map((result) => {
       if (result.status === 'rejected') {
-        return { status: 'rejected', value: result.value };
+        return { status: 'rejected', value: result.reason };
       }
       return { status: 'fulfilled', value: result.value };
     });
