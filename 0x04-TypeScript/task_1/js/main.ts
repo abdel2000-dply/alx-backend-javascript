@@ -17,7 +17,16 @@ class TeacherClass implements Teacher {
   ) {}
 }
 
-const teacher3: Teacher = new TeacherClass('John', 'Doe', false, 'London');
-teacher3.contract = false;
+interface Directors extends Teacher {
+  numberOfReports: number;
+}
 
-console.log(teacher3);
+const director1: Directors = {
+  firstName: 'John',
+  lastName: 'Doe',
+  location: 'London',
+  fullTimeEmployee: true,
+  numberOfReports: 17
+};
+
+console.log(director1);
