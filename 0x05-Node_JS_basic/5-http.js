@@ -1,6 +1,23 @@
 const http = require('http');
 const fs = require('fs');
-const countStudents = require('./3-read_file_async');
+
+function countStudents(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, (err, data) => {
+      if (err) {
+        reject(Error('Cannot load the database'));
+      } else {
+        let content = data.toString().split('\n');
+        let students = content.filter((item) => item);
+        students.shift();
+        const numOfStudents = students.length;
+        let csStudents = students.filter((item) => item.includes('CS')).length;
+        let sweStudents = students.filter((item) => item.includes('SWE')).length;
+        resolve(`Number of students: ${numOfStudents}\nNumber of students in CS: ${csStudents}\nNumber of students in SWE: ${sweStudents}`);
+      }
+    });
+  });
+}
 
 const port = 1245;
 
