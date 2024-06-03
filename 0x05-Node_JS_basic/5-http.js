@@ -7,12 +7,12 @@ function countStudents(path) {
       if (err) {
         reject(Error('Cannot load the database'));
       } else {
-        let content = data.toString().split('\n');
-        let students = content.filter((item) => item);
+        const content = data.toString().split('\n');
+        const students = content.filter((item) => item);
         students.shift();
         const numOfStudents = students.length;
-        let csStudents = students.filter((item) => item.includes('CS')).length;
-        let sweStudents = students.filter((item) => item.includes('SWE')).length;
+        const csStudents = students.filter((item) => item.includes('CS')).length;
+        const sweStudents = students.filter((item) => item.includes('SWE')).length;
         resolve(`Number of students: ${numOfStudents}\nNumber of students in CS: ${csStudents}\nNumber of students in SWE: ${sweStudents}`);
       }
     });
@@ -25,10 +25,10 @@ const app = http.createServer((req, res) => {
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello Holberton School!');
-  } else if (req.url ==='/students') {
+  } else if (req.url === '/students') {
     countStudents(process.argv[2]).then((data) => {
-      res.writeHead(200, { 'Content-Type': 'text/plain' })
-      res.end(`This is the list of our students\n${data}`)
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.end(`This is the list of our students\n${data}`);
     }).catch((error) => {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end(error.message);
