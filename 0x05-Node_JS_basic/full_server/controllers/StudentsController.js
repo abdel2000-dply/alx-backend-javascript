@@ -23,7 +23,7 @@ class StudentsController {
           res.setHeader('Content-Type', 'text/plain');
           res.send(`List: ${fields[major].join(', ')}`);
         } else {
-          res.send('Major parameter must be CS or SWE');
+          res.status(500).send('Major parameter must be CS or SWE');
         }
       })
       .catch(() => {
