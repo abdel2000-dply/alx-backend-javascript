@@ -38,7 +38,12 @@ describe('GET /available_payments', () => {
   it('should return status 200 with the correct body', (done) => {
     request.get('http://localhost:7865/available_payments', (err, res) => {
       expect(res.statusCode).to.equal(200);
-      expect(res.body).to.equal('{"payment_methods":{"credit_cards":true,"paypal":false}}');
+      expect(JSON.parse(res.body)).to.deep.equal({
+        payment_methods: {
+          credit_cards: true,
+          paypal: false
+        }
+      });
       done();
     });
   });
@@ -48,7 +53,7 @@ describe('POST /login', () => {
   it('should return "Welcome Abdellah"', (done) => {
     request.post({
       url: 'http://localhost:7865/login',
-      form: { userName: 'Abdellah' }
+      json: { userName: 'Abdellah' }
     }, (err, res) => {
       expect(res.body).to.equal('Welcome Abdellah');
       done();
